@@ -1,0 +1,20 @@
+name: CI - production
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  # created with https://app.slack.com/block-kit-builder/
+  # and configured the app at https://api.slack.com/apps/A030B7HQ8QL
+  alert-on-success:
+    if: success()
+    needs: [deploy-production]
+    runs-on: self-hosted
+    steps:
+      - id: slackify
+        uses: LoveToKnow/slackify-markdown-action@v1.0.0
+        with:
+          text: ${{ github.event.release.body }}
+      - run: |
+          echo "${{ steps.slackify.outputs.tag_name }} : ${{github.event.release.name}} : ${{ steps.slackify.outputs.text }}"
