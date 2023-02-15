@@ -5,12 +5,8 @@ on:
     types: [released]
 
 jobs:
-  # created with https://app.slack.com/block-kit-builder/
-  # and configured the app at https://api.slack.com/apps/A030B7HQ8QL
-  alert-on-success:
-    if: success()
-    needs: [deploy-production]
-    runs-on: self-hosted
+  alert:
+    runs-on: ubuntu-latest
     steps:
       - id: slackify
         uses: LoveToKnow/slackify-markdown-action@v1.0.0
