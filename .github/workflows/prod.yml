@@ -2,7 +2,7 @@ name: CI - production
 
 on:
   release:
-    types: [released]
+    types: [edited]
 
 jobs:
   alert:
